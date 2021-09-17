@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/f8ca3d18f3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+{% include "navbar.html" %}
+ </section>
+    <div class="container">
+         <section class="row">
+             <div class="col-md-4">
+                 <!--action means after submit form goes to login route-->
+                 <!--/login will receive the email and password posted-->
+                 <br>
+                 <h3><b>LOGIN</b></h3>
+                 <form action="/login" method="post">
+                     <input type="email" name="email" placeholder="EMAIL" class="form-control">
+                     <br>
+                     <input type="password" name="password" placeholder="PASSWORD" class="form-control">
+                     <br>
+                     <input type="submit" value="LOGIN" class="btn btn-success">
+
+
+                 </form>
+                 <b style="color:red;">{{error}}</b>
+                 <b style="color:green;">{{success}}</b><br>
+                 <a href="forgot password">Forgot password</a><br>
+                 <a href="/register">New User?, Create Account</a>
+             </div>
+             <div class="col-md-8">
+                 <br>
+                  <img src="../static/img_21.png" alt=""width="100%">
+
+             </div>
+         </section>
+
+
+         <!--.................................................................footer-->
+         <br>
+     </div>
+ </section>
+<!--footer was here-->
+{% include "footer.html" %}
+
+</body>
+</html>

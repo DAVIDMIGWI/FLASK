@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>single</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/f8ca3d18f3.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+{% include "navbar.html" %}
+
+
+<div class="container">
+     <section class="row">
+        <div class="col-md-4" style="padding:2%;">
+            <div class="card">
+                <img src="../static/{{row[12]}}" alt="" class="img_fluid">
+
+            </div>
+
+        </div>
+        <div class="col-md-5" style="padding:2%;">
+            <span style="color:grey;">BRAND</span>
+                <span style="color:orange;"><b>{{row[10]}}</b></span><br>
+                <h3><b>{{row[2]}}</b></h3>
+                <span style="color:black;"> Category :</span>
+                <span style="color:orange;">  <b>{{row[11]}}</b></span><br>
+                <h2><b> <u>Description</u></b></h2>
+                <p style="color:grey;">{{row[4]}}</p>
+                <span style="color:grey;">Size</span>
+                <span style="color:orange;"> <b>{{row[8]}}</b></span><br><br>
+                <span style="color:grey;">Color</span>
+                <span style="color:orange;">{{row[9]}}</span>
+
+        </div>
+
+         <div class="col-md-3" style="padding:2%;">
+
+                 <span style="color:grey;"><strike>WAS KES{{row[6]}}</strike></span>
+                 <h3><b style="color:orange;">KES {{row[5]}}</b></h3>
+                 <h1 class="badge badge-danger"> 10% OFF</h1><br><br>
+
+             {% if session.user %}
+             {% else %}
+                  login to make payment <a href="/login">Here</a>
+               {% endif %}
+              <h3>Enter Your Phone Number To PAY</h3>
+             <form action="/mpesa_payment" method="post">
+                 <input type="number" name="qtty" placeholder="Enter Qtty" class="form-control">
+                 <input type="tel" name="phone" placeholder="Phone Number" required><br>
+                 <input type="hidden" value="{{row[5]}}" name="amount" required>
+                 <input type="hidden" value="{{row[0]}}" name="product_id" required><br>
+                 <input type="submit" value="PAY NOW" class="btn btn-success">
+             </form>
+
+
+                 <b> Estimated Delivery Time</b><br>
+                 <span>We take 2-4 working Days</span>
+         </div>
+     </section>
+     {% if session.user %}
+
+    <section class="row">
+        <div class="col-md-6">
+            <form action="/reviews" method="POST">
+                <a href="/logout">LOGOUT</a>
+                <h2>Write  Review</h2>
+                <!--flash message-->
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                          <li class="text-success">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}
+
+                <input type="hidden" value="{{session.user}}" name="user">
+                <input type="hidden" value="{{row[0]}}" name="product_id">
+                <textarea name="message" id="" cols="30" rows="4" class="form-control"></textarea><br>
+                <input type="submit" value="Send Review" class="btn btn-success">
+            </form>
+        </div>
+    </section>
+
+    {% else %}
+    <b>Login to post a review <a href="/login">Login</a></b>
+    {% endif %}
+ <!--footer  -->
+{% include "footer.html" %}
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/f8ca3d18f3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+{% include "navbar.html" %}
+
+
+<div class="container">
+    <section class="row">
+             <div class="col-md-4">
+                 <br>
+                 <h3><b>REGISTER</b></h3>
+                 <!--bellow means what inputs will be posted to register route-->
+                 {{password}}
+                 {{error}}
+                 {{success}}
+                 {{phone}}
+
+
+                 <form action="/register" method="post">
+                     <input type="text" name="customer_firstname" placeholder="FIRST NAME" class="form-control" required>
+                     <input type="text" name="customer_lastname" placeholder="SECOND NAME" class="form-control" required>
+                     <input type="text" name="customer_surname" placeholder="SURNAME" class="form-control" required>
+                     <input type="tel" name="customer_phone" placeholder="PHONE" class="form-control" required>
+                     <input type="email" name="customer_email" placeholder="EMAIL" class="form-control" required>
+                     <input type="password" name="customer_password" placeholder="PASSWORD" class="form-control" required>
+                     <input type="password" name="confirm_password" placeholder="CONFIRM PASSWORD" class="form-control">
+                     <input type="date" name="customer_dob"  class="form-control" required>
+                     <label for="">GENDER</label>
+                     <input type="radio" name="customer_gender" checked> MALE
+                     <input type="radio" name="customer_gender"> FEMALE <br>
+                     <label for="">ADDRESS</label><br>
+                     <textarea name="customer_address" id="" cols="40" rows="2" required></textarea>
+                     <br>
+                     <input type="submit" value="REGISTER" class="btn btn-success">
+                     <input type="reset" value="RESET" class="btn btn-warning">
+                 </form>
+                 <a href="forgot password">Forgot password</a><br>
+                 <a href="/login">Already have an account! Login</a>
+             </div>
+             <div class="col-md-8">
+                 <br>
+                  <img src="../static/img_21.png" alt="" width="100%">
+
+             </div>
+         </section>
+
+    {% include "footer.html" %}
+
+
+</body>
+</html>
