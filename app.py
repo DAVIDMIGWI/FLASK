@@ -252,5 +252,37 @@ def mpesa_payment():
 
 
 ##########################################################################################################
+@app.route("/contact",methods=['POST', 'GET'])
+def contact():
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        message = request.form["message"]
+
+        # we now move to the database and confirm if above details exist.
+        sql = "insert into contacts (name,email,message)values(%s,%s,%s)"
+        cursor = connection.cursor()
+        try:
+            cursor.execute(sql, (name, email, message,))
+            connection.commit()
+
+            flash("Message Sent Successfully")
+            return redirect(url_for("contact"))
+
+        except:
+            flash("Message Not Sent")
+            return redirect(url_for("contact"))
+
+    else:
+        return render_template("contact.html")
+
+
+
+
+
+
+##########################################################################################################
+
+
 if __name__ == "__main__":
     app.run(debug=True)
