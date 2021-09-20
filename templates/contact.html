@@ -16,6 +16,13 @@
             <form action="/contact" method="POST">
 
                 <h2>CONTACT US</h2>
+
+                <label for="">NAME</label>
+                <input type="text" name="name" placeholder="NAME"><br>
+                <label for="">EMAIL</label>
+                <input type="email"  name="email" placeholder="EMAIL"><br>
+                <label for="">MESSAGE</label>
+                <textarea name="message" id="" cols="50" rows="4" class="form-control"></textarea><br>
                 {% with messages = get_flashed_messages() %}
                       {% if messages %}
                         <ul class=flashes>
@@ -26,11 +33,8 @@
                       {% endif %}
                     {% endwith %}
                     {% block body %}{% endblock %}
-
-                <input type="text" name="name" placeholder="NAME">
-                <input type="email"  name="email" placeholder="EMAIL">
-                <textarea name="message" id="" cols="50" rows="4" class="form-control"></textarea><br>
                 <input type="submit" value="Send Message" class="btn btn-success">
+                <input type="reset" class="btn btn-warning" value="Reset">
             </form>
         </div>
     </section>
