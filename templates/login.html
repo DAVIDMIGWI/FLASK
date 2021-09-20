@@ -12,18 +12,15 @@
     <div class="container">
          <section class="row">
              <div class="col-md-4">
-                 <!--action means after submit form goes to login route-->
-                 <!--/login will receive the email and password posted-->
-                 <br>
                  <h3><b>LOGIN</b></h3>
                  <form action="/login" method="post">
+                     <!--action means after submit form goes to login route-->
                      <input type="email" name="email" placeholder="EMAIL" class="form-control">
+                     <!--/login will receive the email and password posted-->
                      <br>
                      <input type="password" name="password" placeholder="PASSWORD" class="form-control">
                      <br>
                      <input type="submit" value="LOGIN" class="btn btn-success">
-
-
                  </form>
                  <b style="color:red;">{{error}}</b>
                  <b style="color:green;">{{success}}</b><br>
@@ -33,16 +30,11 @@
              <div class="col-md-8">
                  <br>
                   <img src="../static/img_21.png" alt=""width="100%">
-
              </div>
          </section>
-
-
-         <!--.................................................................footer-->
-         <br>
-     </div>
+    </div>
  </section>
-<!--footer was here-->
+<!--footer -->
 {% include "footer.html" %}
 
 </body>
