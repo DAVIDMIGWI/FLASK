@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <title>dashboard</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+     <script src="https://kit.fontawesome.com/f8ca3d18f3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  {% if session.admin %}
+
+    <h3 class="jumbotron"> Admin Dashboard <b>
+        <br><h6>{{session.admin}}
+  <a href="/adminlogout">logout</a></h6></b></h3>
+
+  <div class="container">
+      <section class="row">
+          <div class="col-md-2">
+              <!--bootstrap sidebar-->
+          </div>
+          <div class="col-md-10">
+              <!--display all customers in a table-->
+              <h4>Customers</h4>
+              <table class="table table-bordered">
+                  <tr>
+                      <th>ID</th>
+                      <th>NAMES</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Gender</th>
+                      <th>Address</th>
+                      <th>Action</th>
+                  </tr>
+                  {% for row in rows %}
+                  <tr>
+                      <td>{{row[0]}}</td>
+                      <td>{{row[1]}} {{row[2]}} {{row[3]}}</td>
+                      <td>{{row[4]}}</td>
+                      <td>{{row[5]}}</td>
+                      <td>{{row[7]}}</td>
+                      <td>{{row[8]}}</td>
+                      <td><a href="" class="btn btn-danger">Del</a></td>
+
+                  </tr>
+                  {% endfor %}
+              </table>
+          </div>
+      </section>
+  </div>
+
+{% else %}
+   login as admin <a href="/admin">here</a>
+{% endif %}
+
+
+
+
+</body>
+</html>

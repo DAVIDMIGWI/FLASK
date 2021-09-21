@@ -1,58 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+   <head>
+      <style>
+         body {
+            background-image: url("/img_12.png");
+         }
+      </style>
+   </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wave on a website</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/wavesurfer.js"></script>
-
-</head>
-
-<body>
-    <div class="hero">
-        <div class="music">
-            <img src="media/indigo.jpg">
-            <div class="info">
-                <h1>Christopher-Brown</h1>
-                <p>Album-Indigo</p>
-                <div id="waveform"></div>
-                <div class="controls">
-                    <img src="media/play.png" id="playBtn">
-                    <img src="media/stop.png" id="stopBtn">
-                    <img src="media/volume.png" id="volumeBtn">
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <script>
-        var playBtn = document.getElementById("playBtn");
-        var stopBtn = document.getElementById("stopBtn");
-        var volumeBtn = document.getElementById("volumeBtn");
-        var wavesurfer = WaveSurfer.create({
-            container: '#waveform',
-            waveColor: 'violet',
-            progressColor: 'purple',
-            barwidth: 4,
-            height: 90,
-            responsive: true,
-            hidescrollbar: true,
-            barRadius: 4,
-
-        });
-        wavesurfer.load('media/Overtime — Chris Brown.mp3');
-        playBtn.onclick = function() {
-            wavesurfer.playPause();
-            if (playBtn.src.includes("play.png")) {
-                playBtn.src = "media/pause.png";
-            } else {
-                playBtn.src = "media/play.png";
-            }
-
-    </script>
-</body>
-
+   <body>
+      <h1>Connect with Tutors</h1>
+   </body>
 </html>

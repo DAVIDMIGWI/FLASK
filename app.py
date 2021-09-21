@@ -142,6 +142,11 @@ def logout():
     session.pop("user")
     return redirect("/login")
 
+@app.route("/adminlogout")
+def adminlogout():
+    session.pop("admin")
+    return redirect("/admin")
+
 
 ##########################################################################################################
 @app.route("/reviews", methods=["POST", "GET"])
@@ -252,18 +257,19 @@ def mpesa_payment():
 
 
 ##########################################################################################################
-@app.route("/contact",methods=['POST', 'GET'])
+@app.route("/contact", methods=['POST', 'GET'])
 def contact():
     if request.method == "POST":
         name = request.form["name"]
+        phone = request.form["phone"]
         email = request.form["email"]
         message = request.form["message"]
 
         # we now move to the database and confirm if above details exist.
-        sql = "insert into contacts (name,email,message)values(%s,%s,%s)"
+        sql = "insert into contacts (name,phone,email,message)values(%s,%s,%s,%s)"
         cursor = connection.cursor()
         try:
-            cursor.execute(sql, (name, email, message,))
+            cursor.execute(sql, (name, phone, email, message,))
             connection.commit()
 
             flash("Message Sent Successfully")
@@ -277,11 +283,50 @@ def contact():
         return render_template("contact.html")
 
 
-
-
-
-
 ##########################################################################################################
+# admim
+@app.route("/admin", methods=["POST", "GET"])
+def admin():
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        sql = "SELECT * FROM admin WHERE email=%s and password=%s"
+        # create cursor and execute above sql
+        cursor = connection.cursor()
+        # execute the sql, provide email and password to fit %s placeholders
+        cursor.execute(sql, (email,password))
+        # check if a match was found.
+        if cursor.rowcount == 0:
+            return render_template("admin.html", error="Check your details and try again")
+        elif cursor.rowcount == 1:
+            # create a user track of who is logged in
+            session["admin"] = email
+            return redirect("/dashboard")
+
+        else:
+            return render_template("admin.html", error="Error!!!!!!")
+    else:
+        return render_template("admin.html")
+
+
+@app.route("/dashboard")
+def dashboard():
+     if "admin" in session:
+         sql="select * from customers"
+         cursor=connection.cursor()
+         cursor.execute(sql)
+         if cursor.rowcount==0:
+             return render_template("dashboard.html",msg="no customers")
+         else:
+             rows=cursor.fetchall()
+             return render_template("dashboard.html", rows=rows) # create this template
+
+     else:
+        return redirect("/admin")
+
+
+
+
 
 
 if __name__ == "__main__":
