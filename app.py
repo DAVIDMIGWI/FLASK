@@ -19,7 +19,6 @@ import pymysql
 connection = pymysql.connect(host="localhost", port=8889, user="root", password="root", database="shoes")
 
 
-############################################################################################################
 @app.route("/shoes")
 def shoes():
     # create your query
@@ -58,13 +57,11 @@ def single(product_id):
         return render_template("single.html", row=row)
 
 
-##########################################################################################################
 @app.route("/")
 def home():
     return render_template("home.html")
 
 
-# this is a login route
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
@@ -90,7 +87,6 @@ def login():
         return render_template("login.html")
 
 
-##########################################################################################################
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if request.method == "POST":
@@ -136,11 +132,11 @@ def register():
         return render_template("register.html")
 
 
-##########################################################################################################
 @app.route("/logout")
 def logout():
     session.pop("user")
     return redirect("/login")
+
 
 @app.route("/adminlogout")
 def adminlogout():
@@ -148,7 +144,6 @@ def adminlogout():
     return redirect("/admin")
 
 
-##########################################################################################################
 @app.route("/reviews", methods=["POST", "GET"])
 def reviews():
     if request.method == "POST":
@@ -173,9 +168,7 @@ def reviews():
         return ""
 
 
-##########################################################################################################
-# payment
-# modcom.co.ke/sql/payment
+# mpesa payment
 import requests
 import datetime
 import base64
@@ -283,7 +276,6 @@ def contact():
         return render_template("contact.html")
 
 
-##########################################################################################################
 # admim
 @app.route("/admin", methods=["POST", "GET"])
 def admin():
@@ -294,7 +286,7 @@ def admin():
         # create cursor and execute above sql
         cursor = connection.cursor()
         # execute the sql, provide email and password to fit %s placeholders
-        cursor.execute(sql, (email,password))
+        cursor.execute(sql, (email, password))
         # check if a match was found.
         if cursor.rowcount == 0:
             return render_template("admin.html", error="Check your details and try again")
@@ -311,22 +303,31 @@ def admin():
 
 @app.route("/dashboard")
 def dashboard():
-     if "admin" in session:
-         sql="select * from customers"
-         cursor=connection.cursor()
-         cursor.execute(sql)
-         if cursor.rowcount==0:
-             return render_template("dashboard.html",msg="no customers")
-         else:
-             rows=cursor.fetchall()
-             return render_template("dashboard.html", rows=rows) # create this template
+    if "admin" in session:
+        sql = "select * from customers"
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        if cursor.rowcount == 0:
+            return render_template("dashboard.html", msg="no customers")
+        else:
+            rows = cursor.fetchall()
+            return render_template("dashboard.html", rows=rows)  # create this template
 
-     else:
+    else:
         return redirect("/admin")
 
 
-
-
+@app.route('/customer_del/<customer_id>')
+def customer_del(customer_id):
+    if 'admin' in session:
+        sql='delete from customers where customer_id=%s'
+        cursor=connection.cursor()
+        cursor.execute(sql,(customer_id))
+        connection.commit()
+        flash("Customer deleted Successfully")
+        return redirect('/dashboard')
+    else:
+        return redirect('/admin')
 
 
 if __name__ == "__main__":

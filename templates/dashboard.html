@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/f8ca3d18f3.js" crossorigin="anonymous"></script>
 <head>
      <meta charset="UTF-8">
      <title>dashboard</title>
@@ -17,10 +19,29 @@
       <section class="row">
           <div class="col-md-2">
               <!--bootstrap sidebar-->
+              <sidebar>
+                  <a href="">Reviews</a><br>
+                  <a href="">Contact</a><br>
+                  <a href="">View products</a>
+
+
+              </sidebar>
           </div>
           <div class="col-md-10">
               <!--display all customers in a table-->
               <h4>Customers</h4>
+
+              {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                          <li class="text-success">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+                    {% block body %}{% endblock %}
+
               <table class="table table-bordered">
                   <tr>
                       <th>ID</th>
@@ -39,8 +60,8 @@
                       <td>{{row[5]}}</td>
                       <td>{{row[7]}}</td>
                       <td>{{row[8]}}</td>
-                      <td><a href="" class="btn btn-danger">Del</a></td>
-
+                      <td><a href="/customer_del/{{row[0]}}" onclick="return confirm('Are you sure?');"><i class="fas fa-trash-alt"></i>
+                          </a></td>
                   </tr>
                   {% endfor %}
               </table>
